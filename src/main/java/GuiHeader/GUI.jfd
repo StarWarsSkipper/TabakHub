@@ -1,0 +1,42 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.defaultVariableModifiers": 1
+		}
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, par l {seq l {comp searchButton:::p:89:p, space s:::p, comp updateButton:::p::p, space :0:0:x}, comp addObjButton::l:::x, comp searchbar::l:::x}, space :::p, comp scrollPane1:::p:627:p, space :::p}}"
+			"$verticalGroup": "par l {seq {space :::p, par l:::p {seq {comp searchbar:::p:38:p, space :::p, par b {comp searchButton::b:p::p, comp updateButton::b:p::p}, space :::x, comp addObjButton:::p:70:p}, comp scrollPane1:::p:427:p}, space ::5:x}}"
+		} ) {
+			name: "this"
+			"resizable": false
+			"title": "TabakHub"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "objTable"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "searchbar"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "searchButton"
+				"text": "Suchen"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "updateButton"
+				"text": "Aktualisieren"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addObjButton"
+				"text": "Neu"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 230, 45 )
+			"size": new java.awt.Dimension( 855, 470 )
+		} )
+	}
+}

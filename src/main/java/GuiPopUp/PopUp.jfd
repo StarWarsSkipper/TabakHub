@@ -1,0 +1,37 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.defaultVariableModifiers": 1
+		}
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space ::358:x, comp cancelButton:::p:100:p, space s:::p, comp addButton:::p:100:p, space :p:357:p}, seq l {space :::p, comp scrollPane1:::::x, space :::p}}"
+			"$verticalGroup": "par l {seq t {space :p:12:p, comp scrollPane1::::105:x, space :::p, par b {comp addButton::b:::x, comp cancelButton::b:p::p}}}"
+		} ) {
+			name: "this"
+			"resizable": false
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "newObjTable"
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "cancelButton"
+				"text": "Abbrechen"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addButton"
+				"text": "Hinzufügen"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 10 )
+			"size": new java.awt.Dimension( 935, 185 )
+		} )
+	}
+}
