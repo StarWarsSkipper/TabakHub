@@ -34,7 +34,7 @@ public class GUI extends JFrame {
     public JButton searchButton;
     public JButton updateButton;
     public JButton addObjButton;
-
+//Verdammte scheiß Git
     {
 
     }
