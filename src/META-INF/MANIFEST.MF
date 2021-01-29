@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: Main
+Class-Path: ./lib/msql-connector-java-8.0.12.jar
 
