@@ -14,9 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * @author Jens Bott
@@ -34,7 +32,8 @@ public class GUI extends JFrame {
     public JButton searchButton;
     public JButton updateButton;
     public JButton addObjButton;
-//Verdammte scheiß Git
+
+    //Verdammte scheiß Git
     {
 
     }
@@ -95,7 +94,13 @@ public class GUI extends JFrame {
         }
 
         //---- searchButton ----
-        searchButton.setText("Suchen");
+        searchButton.setText("L\u00f6schen");
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteEntry(searchbar.getText());
+            }
+        });
 
         //---- updateButton ----
         updateButton.setText("Aktualisieren");
@@ -208,11 +213,17 @@ public class GUI extends JFrame {
                 updateList("*", "where Bestand like " + "'%" + keyword + "%'");
             }
 
-        } else if("/" != command.substring(0, 1)) {
-                updateList("*", "where name like '%"+command+"%' or Geschmack like '%"+command+"%'or Marke like'%"+command+"%' or Bewertung like '%"+command+"%' or Bestand like '%"+command+"%'");
-        } else {
+
+      /*  } else if (command.contains(String.format("/delete"))) {
+            String keyword = command.substring(9);
+            if (keyword.matches("[0-9]+") && "/delete "  != command.substring(8,9)){
+                deleteEntry(keyword);
+            }*/
 
 
+
+        } else if ("/" != command.substring(0, 1)) {
+            updateList("*", "where name like '%" + command + "%' or Geschmack like '%" + command + "%'or Marke like'%" + command + "%' or Bewertung like '%" + command + "%' or Bestand like '%" + command + "%'");
         }
     }
 
@@ -240,6 +251,24 @@ public class GUI extends JFrame {
 
     public JTable resetTable(JTable jt) {
         return jt = new JTable();
+    }
+
+    private void deleteEntry(String idtabak){
+        int succsess =1;
+        String query = "DELETE from `mike`.`"+ sqlDataTable +"` where idtabak = "  + idtabak;
+        try {
+            con = MySQLCon.con;
+            Statement stmt = con.createStatement();
+            System.out.println(query);
+            PreparedStatement ps = con.prepareStatement(query);
+            succsess = ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 

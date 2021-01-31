@@ -7,8 +7,8 @@ new FormModel {
 			"JavaCodeGenerator.defaultVariableModifiers": 1
 		}
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :::p, par l {seq l {comp searchButton:::p:89:p, space s:::p, comp updateButton:::p::p, space :0:0:x}, comp addObjButton::l:::x, comp searchbar::l:::x}, space :::p, comp scrollPane1:::p:627:p, space :::p}}"
-			"$verticalGroup": "par l {seq {space :::p, par l:::p {seq {comp searchbar:::p:38:p, space :::p, par b {comp searchButton::b:p::p, comp updateButton::b:p::p}, space :::x, comp addObjButton:::p:70:p}, comp scrollPane1:::p:427:p}, space ::5:x}}"
+			"$horizontalGroup": "par l {seq l {space :::p, par l {comp addObjButton::l:::x, comp searchbar::l:::x, seq {comp searchButton:::p:89:p, space s:::p, comp updateButton:::p::p, space :0:0:x}, seq {comp deleteField:::p:120:p, space :::x, comp deleteButton:::p:84:p}}, space :::p, comp scrollPane1:::p:627:p, space :::p}}"
+			"$verticalGroup": "par l {seq {space :::p, par l:::p {seq {comp searchbar:::p:38:p, space :::p, par b {comp searchButton::b:p::p, comp updateButton::b:p::p}, space :::x, par b {comp deleteField::b:p::p, comp deleteButton::b:p::p}, space :::p, comp addObjButton:::p:70:p}, comp scrollPane1:::p:427:p}, space ::5:x}}"
 		} ) {
 			name: "this"
 			"resizable": false
@@ -34,8 +34,15 @@ new FormModel {
 				name: "addObjButton"
 				"text": "Neu"
 			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "deleteField"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "deleteButton"
+				"text": "Löschen"
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 230, 45 )
+			"location": new java.awt.Point( 15, 20 )
 			"size": new java.awt.Dimension( 855, 470 )
 		} )
 	}
