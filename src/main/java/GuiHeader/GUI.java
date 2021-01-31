@@ -16,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.*;
 
+import static javax.swing.JOptionPane.*;
+
 /**
  * @author Jens Bott
  */
@@ -97,8 +99,17 @@ public class GUI extends JFrame {
         searchButton.setText("L\u00f6schen");
         searchButton.addActionListener(new ActionListener() {
             @Override
+
             public void actionPerformed(ActionEvent e) {
-                deleteEntry(searchbar.getText());
+
+              int n =  JOptionPane.showConfirmDialog(null,"Den Tabak mit der ID "+searchbar.getText()+ " löschen ?", "Warnung",YES_NO_OPTION,WARNING_MESSAGE);
+              System.out.println(n);
+                if(n==0) {
+                    deleteEntry(searchbar.getText());
+                  ad.readData("*"," ");
+
+                }
+
             }
         });
 
@@ -221,7 +232,6 @@ public class GUI extends JFrame {
             }*/
 
 
-
         } else if ("/" != command.substring(0, 1)) {
             updateList("*", "where name like '%" + command + "%' or Geschmack like '%" + command + "%'or Marke like'%" + command + "%' or Bewertung like '%" + command + "%' or Bestand like '%" + command + "%'");
         }
@@ -253,9 +263,9 @@ public class GUI extends JFrame {
         return jt = new JTable();
     }
 
-    private void deleteEntry(String idtabak){
-        int succsess =1;
-        String query = "DELETE from `mike`.`"+ sqlDataTable +"` where idtabak = "  + idtabak;
+    private void deleteEntry(String idtabak) {
+        int succsess = 1;
+        String query = "DELETE from `mike`.`" + sqlDataTable + "` where idtabak = " + idtabak;
         try {
             con = MySQLCon.con;
             Statement stmt = con.createStatement();
