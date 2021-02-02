@@ -7,43 +7,64 @@ new FormModel {
 			"JavaCodeGenerator.defaultVariableModifiers": 1
 		}
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :::p, par l {comp addObjButton::l:::x, comp searchbar::l:::x, seq {comp searchButton:::p:89:p, space s:::p, comp updateButton:::p::p, space :0:0:x}, seq {comp deleteField:::p:120:p, space :::x, comp deleteButton:::p:84:p}}, space :::p, comp scrollPane1:::p:627:p, space :::p}}"
-			"$verticalGroup": "par l {seq {space :::p, par l:::p {seq {comp searchbar:::p:38:p, space :::p, par b {comp searchButton::b:p::p, comp updateButton::b:p::p}, space :::x, par b {comp deleteField::b:p::p, comp deleteButton::b:p::p}, space :::p, comp addObjButton:::p:70:p}, comp scrollPane1:::p:427:p}, space ::5:x}}"
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp searchbar::l::214:x, comp updateButton::l::214:x, seq l {comp deleteButton::::97:x, space :::p, comp saveButton:::p:111:p}, comp newObjButton::t::214:x}, space :::p, comp tabbedPane1:::p:746:p, space :::p}}"
+			"$verticalGroup": "par l {seq t {space :::p, par t {comp tabbedPane1::::444:x, seq {comp searchbar:::p:40:p, space :::p, comp updateButton:::p::p, space :::p, par b {comp deleteButton::b:p::p, comp saveButton::b:p::p}, space ::282:x, comp newObjButton:::p:50:p}}, space :::p}}"
 		} ) {
 			name: "this"
-			"resizable": false
-			"title": "TabakHub"
-			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-				name: "scrollPane1"
-				add( new FormComponent( "javax.swing.JTable" ) {
-					name: "objTable"
-				} )
-			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "searchbar"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "searchButton"
-				"text": "Suchen"
+				"toolTipText": "/command {Stichwort})"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "updateButton"
 				"text": "Aktualisieren"
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "addObjButton"
-				"text": "Neu"
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "deleteField"
+				"actionCommand": "Aktualisieren"
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "deleteButton"
 				"text": "Löschen"
 			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "saveButton"
+				"text": "Speichern"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "newObjButton"
+				"text": "Hinzufügen"
+			} )
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "mixPane"
+					add( new FormComponent( "javax.swing.JTable" ) {
+						name: "mixTable"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "text"
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "tabakPane"
+					add( new FormComponent( "javax.swing.JTable" ) {
+						name: "tabakTable"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "test"
+				} )
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "fileMenu"
+					"text": "Datei"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "exitItem"
+						"text": "Beenden"
+					} )
+				} )
+			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 15, 20 )
-			"size": new java.awt.Dimension( 855, 470 )
+			"location": new java.awt.Point( 0, 25 )
+			"size": new java.awt.Dimension( 980, 510 )
 		} )
 	}
 }

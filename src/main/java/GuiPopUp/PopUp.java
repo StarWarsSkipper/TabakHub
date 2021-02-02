@@ -4,7 +4,6 @@
 
 package GuiPopUp;
 
-import GuiHeader.GUI;
 import SQLHandler.AccsesData;
 
 import javax.swing.*;
@@ -86,7 +85,7 @@ public class PopUp extends JFrame {
                     valuesString[i] = (String) newObjTable.getModel().getValueAt(0, i);
                 }
                 int succsessful;
-                succsessful = ad.writeData(valuesString[0], valuesString[1], valuesString[2], valuesString[3], valuesString[4]);
+                succsessful = ad.addObj(valuesString[0], valuesString[1], valuesString[2], valuesString[3], valuesString[4]);
                 PopUp.super.dispose();
             }
         });
