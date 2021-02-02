@@ -16,7 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.*;
 
-import static javax.swing.JOptionPane.*;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
  * @author Jens Bott
@@ -102,11 +103,11 @@ public class GUI extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
 
-              int n =  JOptionPane.showConfirmDialog(null,"Den Tabak mit der ID "+searchbar.getText()+ " löschen ?", "Warnung",YES_NO_OPTION,WARNING_MESSAGE);
-              System.out.println(n);
-                if(n==0) {
+                int n = JOptionPane.showConfirmDialog(null, "Den Tabak mit der ID " + searchbar.getText() + " löschen ?", "Warnung", YES_NO_OPTION, WARNING_MESSAGE);
+                System.out.println(n);
+                if (n == 0) {
                     deleteEntry(searchbar.getText());
-                  ad.readData("*"," ");
+                    updateList("*","");
 
                 }
 
@@ -225,11 +226,7 @@ public class GUI extends JFrame {
             }
 
 
-      /*  } else if (command.contains(String.format("/delete"))) {
-            String keyword = command.substring(9);
-            if (keyword.matches("[0-9]+") && "/delete "  != command.substring(8,9)){
-                deleteEntry(keyword);
-            }*/
+
 
 
         } else if ("/" != command.substring(0, 1)) {
@@ -264,14 +261,14 @@ public class GUI extends JFrame {
     }
 
     private void deleteEntry(String idtabak) {
-        int succsess = 1;
-        String query = "DELETE from `mike`.`" + sqlDataTable + "` where idtabak = " + idtabak;
+
+        String query = "DELETE from `mike`.` " + sqlDataTable + "` where idtabak = " + idtabak;
         try {
             con = MySQLCon.con;
             Statement stmt = con.createStatement();
             System.out.println(query);
             PreparedStatement ps = con.prepareStatement(query);
-            succsess = ps.executeUpdate();
+            ps.executeUpdate();
 
 
         } catch (SQLException e) {
