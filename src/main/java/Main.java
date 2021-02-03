@@ -1,26 +1,27 @@
 
 import GuiHeader.GUI;
+import MixGui.MixPopUp;
 import SQLHandler.AccsesData;
 import SQLHandler.MySQLCon;
+import TabakGui.TabakPopUp;
 
 import javax.swing.*;
 
 
 public class Main {
 
-    public static String[] items = new String[3];
-    public static String[] namen = {"Marke", "Name", "Geschmak"};
-    public static int ratingItem = 0;
-    public static int bestandItem;
-
     public static JTable table;
+
+    public static AccsesData ad;
+    public static MySQLCon msqlHandler;
 
     public static void main(String[] args) {
 
 
-        AccsesData ad = new AccsesData();
+        new MySQLCon().establishConnection();
 
-        MySQLCon con = new MySQLCon();
+        ad = new AccsesData();
+
 
         GUI gRef = new GUI();
 
@@ -28,13 +29,7 @@ public class Main {
         gRef.pack(); // <=========== PACK
         gRef.setVisible(true);
 
-
-        
-
-
-
-
-
+        //+ad.updateList(gRef);
 
 
     }

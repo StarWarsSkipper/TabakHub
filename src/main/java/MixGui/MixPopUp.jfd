@@ -1,0 +1,36 @@
+JFDML JFormDesigner: "7.0.3.0.337" Java: "11.0.9.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq {space :::p, par l {comp scrollPane1::::1281:x, seq {space :p:510:p, comp cancleButton:::p:128:p, space u:::p, comp addButton:::p:119:p, space :0:512:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp scrollPane1:::p:75:p, space s:::p, par b {comp cancleButton::b:p::p, comp addButton::b:p::p}, space ::19:x}}"
+		} ) {
+			name: "this"
+			"resizable": false
+			"alwaysOnTop": true
+			"defaultCloseOperation": 0
+			auxiliary() {
+				"JavaCodeGenerator.variableModifiers": 1
+			}
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "newMixObj"
+				} )
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "cancleButton"
+				"text": "Abbrechen"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "addButton"
+				"text": "Hinzufügen"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1295, 180 )
+		} )
+	}
+}

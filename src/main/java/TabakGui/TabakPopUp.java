@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Wed Jan 27 15:07:46 CET 2021
  */
 
-package GuiPopUp;
+package TabakGui;
 
 import SQLHandler.AccsesData;
 
@@ -17,14 +17,12 @@ import java.awt.event.KeyEvent;
 /**
  * @author Jens Bott
  */
-public class PopUp extends JFrame {
+public class TabakPopUp extends JFrame {
     static AccsesData ad = new AccsesData();
     public String sqlDataTable = ad.sqlDataTable;
-    
-        
-    
 
-    public PopUp() {
+
+    public TabakPopUp() {
         initComponents();
     }
 
@@ -47,7 +45,6 @@ public class PopUp extends JFrame {
         //======== this ========
         setResizable(false);
         var contentPane = getContentPane();
-        setBackground(Color.red);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         //setUndecorated(true);
         setAlwaysOnTop(true);
@@ -62,7 +59,7 @@ public class PopUp extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PopUp.super.dispose();
+                TabakPopUp.super.dispose();
             }
         });
 
@@ -71,7 +68,7 @@ public class PopUp extends JFrame {
         addButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                PopUp.super.dispose();        
+                TabakPopUp.super.dispose();
             }
         });
 
@@ -86,7 +83,7 @@ public class PopUp extends JFrame {
                 }
                 int succsessful;
                 succsessful = ad.addObj(valuesString[0], valuesString[1], valuesString[2], valuesString[3], valuesString[4]);
-                PopUp.super.dispose();
+                TabakPopUp.super.dispose();
             }
         });
 

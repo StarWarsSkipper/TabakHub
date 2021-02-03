@@ -4,11 +4,14 @@
 
 package GuiHeader;
 
-import GuiPopUp.PopUp;
+import MixGui.MixPopUp;
 import SQLHandler.AccsesData;
 import SQLHandler.MySQLCon;
+import TabakGui.TabakPopUp;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +25,12 @@ import java.util.Arrays;
  */
 public class GUI extends JFrame {
 
+    public static JTabbedPane tabbedPane1;
+    static MySQLCon mysqlHandler = new MySQLCon();
     static Connection con = MySQLCon.con;
     static AccsesData ad = new AccsesData();
     static String sqlDataTable = ad.sqlDataTable;
-
-
+    static JTable activeList;
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Jens Bott
     public JMenuBar menuBar;
@@ -37,7 +41,6 @@ public class GUI extends JFrame {
     public JButton deleteButton;
     public JButton saveButton;
     public JButton newObjButton;
-    public JTabbedPane tabbedPane1;
     public JScrollPane mixPane;
     public JTable mixTable;
     public JScrollPane tabakPane;
@@ -64,13 +67,27 @@ public class GUI extends JFrame {
         tabakPane = new JScrollPane();
         tabakTable = new JTable();
 
-        DefaultTableModel model = (DefaultTableModel) tabakTable.getModel();
-        model.addColumn("idTabak");
-        model.addColumn("Marke");
-        model.addColumn("Name");
-        model.addColumn("Geschmack");
-        model.addColumn("Bewertung");
-        model.addColumn("Bestand");
+        DefaultTableModel tabakModel = (DefaultTableModel) tabakTable.getModel();
+        tabakModel.addColumn("idTabak");
+        tabakModel.addColumn("Marke");
+        tabakModel.addColumn("Name");
+        tabakModel.addColumn("Geschmack");
+        tabakModel.addColumn("Bewertung");
+        tabakModel.addColumn("Bestand");
+
+        DefaultTableModel mixModel = (DefaultTableModel) mixTable.getModel();
+        mixModel.addColumn("idMix");
+        mixModel.addColumn("Tabak 1");
+        mixModel.addColumn("Tabak 2");
+        mixModel.addColumn("Tabak 3");
+        mixModel.addColumn("Tabak 4");
+        mixModel.addColumn("Verhältnis 1");
+        mixModel.addColumn("Verhältnis 2");
+        mixModel.addColumn("Verhältnis 3");
+        mixModel.addColumn("Verhältnis 4");
+        mixModel.addColumn("Sonstiges");
+        mixModel.addColumn("Bewertung");
+
 
         //======== this ========
         var contentPane = getContentPane();
@@ -124,6 +141,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 refreshList("*", "");
+
             }
         });
 
@@ -162,16 +180,31 @@ public class GUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                PopUp pu = new PopUp();
-                pu.pack(); // <=========== PACK
-                pu.setVisible(true);
-                refreshList("*", "");
+                if (tabbedPane1.getSelectedIndex() == 0) {
+                    TabakPopUp tpu = new TabakPopUp();
+                    tpu.pack(); // <=========== PACK
+                    tpu.setVisible(true);
+                    refreshList("*", "");
+                } else if (tabbedPane1.getSelectedIndex() == 1) {
+                    MixPopUp mpu = new MixPopUp();
+                    mpu.pack(); // <=========== PACK
+                    mpu.setVisible(true);
+                    refreshList("*", "");
+                }
+
 
             }
         });
 
         //======== tabbedPane1 ========
         {
+            tabbedPane1.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    System.out.println("Changed");
+                    refreshList("*", " ");
+                }
+            });
 
 
             //======== tabakPane ========
@@ -279,79 +312,91 @@ public class GUI extends JFrame {
     }
 
     private void refreshList(String suche, String bedignung) {
-            try {
+        try {
 
-                DefaultTableModel model = (DefaultTableModel) tabakTable.getModel();
-                while (model.getRowCount() > 0) {
-                    model.removeRow(0);
-                }
+            activeList = ((JTable) (((JScrollPane) tabbedPane1.getSelectedComponent()).getViewport()).getView());
+            DefaultTableModel model = (DefaultTableModel) activeList.getModel();
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
 
-                con = MySQLCon.con;
+            if (tabbedPane1.getSelectedIndex() == 0) {
                 Statement stmt = con.createStatement();
-                //System.out.println("select " + suche + " from " + sqlDataTable + " " + bedignung);
-                ResultSet rs = stmt.executeQuery("select " + suche + " from " + sqlDataTable + " " + bedignung);
+                ResultSet rs = stmt.executeQuery("select " + suche + " from tabak " + bedignung);
                 while (rs.next()) {
                     model.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)});
                 }
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
 
-
-        public JTable resetTable(JTable jt) {
-            return jt = new JTable();
-        }
-
-
-        public void saveTable() {
-
-            DefaultTableModel model = (DefaultTableModel) tabakTable.getModel();
-
-            for (int y = 0; y < model.getRowCount(); y++) {
-                String[] cache = new String[5];
-                int id = -1;
-                int laufvar = 0;
-                for (int x = 1; x <= 5; x++) {
-                    cache[x-1] = (String) model.getValueAt(y, x);
-                   id = (int) model.getValueAt(y, 0);
-                   laufvar++;
+            } else if (tabbedPane1.getSelectedIndex() == 1) {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select " + suche + " from mix " + bedignung);
+                while (rs.next()) {
+                    model.addRow(new Object[]{rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11)});
                 }
-                System.out.println(Arrays.toString(cache));
-                updateSqlTable(id,cache);
-
-
             }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    public JTable resetTable(JTable jt) {
+        return jt = new JTable();
+    }
+
+
+    public void saveTable() {
+
+        activeList = ((JTable) (((JScrollPane) tabbedPane1.getSelectedComponent()).getViewport()).getView());
+        DefaultTableModel model = (DefaultTableModel) activeList.getModel();
+
+        for (int y = 0; y < model.getRowCount(); y++) {
+            String[] cache = new String[5];
+            int id = -1;
+            int laufvar = 0;
+            for (int x = 1; x <= 5; x++) {
+                cache[x - 1] = (String) model.getValueAt(y, x);
+                id = (int) model.getValueAt(y, 0);
+                laufvar++;
+            }
+            System.out.println(Arrays.toString(cache));
+            updateSqlTable(id, cache);
+
 
         }
 
-        public void updateSqlTable(int id, String [] cache) {
+    }
 
-            String query = "UPDATE `mike`.`test` SET `Marke` = ?, `Name` = ?, `Geschmack` = ?, `Bewertung` = ?, `Bestand` = ? WHERE `idtabak` = " + id;
+    public void updateSqlTable(int id, String[] cache) {
 
-            try {
-                con = MySQLCon.con;
-                PreparedStatement ps = con.prepareStatement(query);
+        String query = "UPDATE `mike`.`test` SET `Marke` = ?, `Name` = ?, `Geschmack` = ?, `Bewertung` = ?, `Bestand` = ? WHERE `idtabak` = " + id;
 
-                ps.setString(1, cache[0]);
-                ps.setString(2, cache[1]);
-                ps.setString(3, cache[2]);
-                ps.setString(4, cache[3]);
-                ps.setString(5, cache[4]);
-                ps.executeUpdate();
+        try {
 
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            //con = mysqlHandler.establishConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, cache[0]);
+            ps.setString(2, cache[1]);
+            ps.setString(3, cache[2]);
+            ps.setString(4, cache[3]);
+            ps.setString(5, cache[4]);
+            ps.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+    }
 
     private void deleteEntry(String idtabak) {
 
         String query = "DELETE from `mike`.` " + sqlDataTable + "` where idtabak = " + idtabak;
         try {
-            con = MySQLCon.con;
-            Statement stmt = con.createStatement();
+
+            //con = mysqlHandler.establishConnection();
+            //Statement stmt = con.createStatement();
             System.out.println(query);
             PreparedStatement ps = con.prepareStatement(query);
             ps.executeUpdate();
@@ -365,8 +410,7 @@ public class GUI extends JFrame {
     }
 
 
-
-        // JFormDesigner - End of variables declaration  //GEN-END:variables
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
 }
